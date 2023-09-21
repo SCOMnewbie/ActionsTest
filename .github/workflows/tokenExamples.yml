@@ -1,40 +1,10 @@
 # This is a basic workflow to show how to use GITHUB_TOKEN
-
-name: GITHUB_TOKEN examples
-
+name: hello-world
 on:
   workflow_dispatch:
-
-permissions:
-  contents: write
-  pull-requests: write  
-
 jobs:
-  try:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/labeler@v2
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Create a Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
-          tag_name: myTag
-          # The name of the release. For example, `Release v1.0.1`
-          release_name: ReleaseName
-          draft: false
-          prerelease: false
-  api:   
+  my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Create issue using REST API
-        run: |
-          echo ${{ secrets.GITHUB_TOKEN }}
-          echo 'or'
-          echo ${{ github.token }}
+      - name: my-step
+        run: echo "Hello World!" ${{ secrets.GITHUB_TOKEN }} 'or'  ${{ github.token }}
